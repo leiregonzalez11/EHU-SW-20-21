@@ -28,24 +28,15 @@ public class CreateCollection extends HttpServlet{
 
 		String collection = request.getParameter("collection");
 		
-		if (!eXist.existCollection(collection)) {
-			
-			request.setAttribute("informacion", "Error: La colección "+ collection + " ya existe.");
-		}
-		
+		if (!eXist.existCollection(collection)) request.setAttribute("informacion", "ERROR: La colección " + collection + " ya existe.");
 		else {
-			
 			int status = eXist.create(collection);
-			
-			if (status == 201) {
-				request.setAttribute("informacion", "Colección "+ collection + " creada correctamente");
-			} else {
-				request.setAttribute("informacion", "Ha surgido un problema. Inténtelo de nuevo. (Código "+ status +")");
-			}
+			if (status == 201) request.setAttribute("informacion", "Colección "+ collection + " creada correctamente");
+			else request.setAttribute("informacion", "ERROR: Ha surgido un problema. Inténtelo de nuevo.");	
 		}
 		
 		
-		System.out.println("     Redireccionando a index.jsp");
+		System.out.println("Redireccionando a index.jsp");
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/index.jsp");
 		rd.forward(request, response);
 			

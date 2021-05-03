@@ -28,7 +28,7 @@ public class NewImage extends HttpServlet{
 
 		String collection = request.getParameter("collection");
 		String svg = request.getParameter("svgName");
-		String resource = "<svg></svg>";
+		String resource = "<svg> Introduzca aqui su código </svg>";
 		
 		if (!eXist.existImage(collection,svg)) {
 			
@@ -47,9 +47,9 @@ public class NewImage extends HttpServlet{
 			request.setAttribute("svgName", svg);
 			request.setAttribute("imagenSVG", resource);
 			String imagenURI = "http://localhost:8081/exist/rest/db/" + collection + "/" + svg + "/";
-			request.setAttribute("imagenURI",imagenURI);
+			request.setAttribute("imagenURI", imagenURI);
 			
-			System.out.println("     Redireccionando a imagenEdit.jsp");
+			System.out.println("Redireccionando a imagenEdit.jsp");
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/imagenEdit.jsp");
 			rd.forward(request, response);
 		

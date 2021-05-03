@@ -30,16 +30,12 @@ public class DeleteCollection extends HttpServlet {
 		String collection = request.getParameter("collection");
 		
 		int status = eXist.delete(collection);
-		if (status == 200) {
-			request.setAttribute("informacion", "Colección "+ collection +" eliminada correctamente");
-		} else {
-			request.setAttribute("informacion", "Ha surgido un error. Inténtelo de nuevo. (Código "+ status+")");
-		}
 		
-		System.out.println("     Redireccionando a index.jsp");
+		if (status == 200) request.setAttribute("informacion", "Colección "+ collection +" eliminada correctamente");
+		else request.setAttribute("informacion", "Ha surgido un error. Inténtelo de nuevo."); 
+		
+		System.out.println("Redireccionando a index.jsp");
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/index.jsp");
-		response.setHeader("Cache-Control", "no-cache");
-		response.setDateHeader("Expires", 0);
 		rd.forward(request, response);
 			
 	}
