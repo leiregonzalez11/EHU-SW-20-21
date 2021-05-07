@@ -10,6 +10,7 @@ from urllib.parse import unquote
 ##########################################################################################################
 
 def make_entry(parent, caption, width=None, **options):
+
     label = tk.Label(parent, text=caption)
     label.pack(side=tk.TOP)
     entry = tk.Entry(parent, **options)
@@ -18,6 +19,7 @@ def make_entry(parent, caption, width=None, **options):
     return entry
 
 def make_listbox(messages_frame):
+
     messages_frame.config(bd=1, relief="ridge")
     scrollbar = tk.Scrollbar(messages_frame)
     msg_listbox = tk.Listbox(messages_frame, height=20, width=70, exportselection=0, selectmode=tk.EXTENDED)
@@ -27,6 +29,7 @@ def make_listbox(messages_frame):
     return msg_listbox
 
 def transfer_files():
+
     popup, progress_var, progress_bar = helper.progress("transfer_file", "Transfering files...")
     progress = 0
     progress_var.set(progress)
@@ -60,6 +63,7 @@ def transfer_files():
     msg_listbox2.yview(tk.END)
 
 def delete_files():
+
     popup, progress_var, progress_bar = helper.progress("delete_file", "Deleting files...")
     progress = 0
     progress_var.set(progress)
@@ -82,6 +86,7 @@ def delete_files():
     dropbox.list_folder(msg_listbox2)
 
 def name_folder(folder_name):
+
     if dropbox._path == "/":
         dropbox._path = dropbox._path + str(folder_name)
     else:
@@ -92,6 +97,7 @@ def name_folder(folder_name):
     dropbox.list_folder(msg_listbox2)
 
 def create_folder():
+
     popup = tk.Toplevel(newroot)
     popup.geometry('200x100')
     popup.title('Dropbox')

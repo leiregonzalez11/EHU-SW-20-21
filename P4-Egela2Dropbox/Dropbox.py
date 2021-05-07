@@ -5,8 +5,8 @@ from socket import AF_INET, socket, SOCK_STREAM
 import json
 import helper
 
-app_key = ''
-app_secret = ''
+app_key = 'kfacoosqtm5n9zp'
+app_secret = 'kfacoosqtm5n9zp'
 server_addr = "localhost"
 server_port = 8090
 redirect_uri = "http://" + server_addr + ":" + str(server_port)
@@ -23,6 +23,7 @@ class Dropbox:
 
 
     def local_server(self):
+
         # 8090. portuan entzuten dagoen zerbitzaria sortu
         server_socket = socket(AF_INET, SOCK_STREAM)
         server_socket.bind((server_addr, server_port))
