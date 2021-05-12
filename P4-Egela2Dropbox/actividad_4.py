@@ -117,6 +117,7 @@ def create_folder():
     dropbox._root = popup
 
 
+
 ##########################################################################################################
 
 def check_credentials(event= None):
@@ -151,6 +152,7 @@ def on_double_clicking2(event):
     dropbox.list_folder(msg_listbox2)
 ##########################################################################################################
 # Login eGela
+
 root = tk.Tk()
 root.geometry('250x150')
 root.iconbitmap('./favicon.ico') #

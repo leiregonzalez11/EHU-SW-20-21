@@ -139,10 +139,6 @@ class eGela:
 
         print("\n##### 4. PETICION (Página principal de la asignatura en eGela) #####")
 
-        #############################################
-        # RELLENAR CON CODIGO DE LA PETICION HTTP
-        # Y PROCESAMIENTO DE LA RESPUESTA HTTP
-        #############################################
 
         metodo = 'GET'
         uri = 'https://egela.ehu.eus/course/view.php?id=43994'
@@ -166,19 +162,16 @@ class eGela:
 
         print ("")
 
-        #progress_step = float(100.0 / len(NUMERO DE PDF_EN_EGELA))
-
 
         print("\n##### Analisis del HTML... #####")
 
-        #############################################
-        # ANALISIS DE LA PAGINA DEL AULA EN EGELA
-        # PARA BUSCAR PDFs
-        #############################################
 
         soup = BeautifulSoup (contenido, 'html.parser')
+
         links = soup.find_all ('a')
-        i = 0
+
+        progress_step = float (100.0 / len (links))
+
         filelink = ''
         self._refs =[]
 
@@ -190,23 +183,12 @@ class eGela:
                     pdf_name = link.span.text
 
                     self._refs.append({'pdf_name': pdf_name , 'pdf_link': filelink})
-                    i+=i
 
-                    #print(filelink)
-                    #print(pdf_name)
+                    progress += progress_step
+                    progress_var.set(progress)
+                    progress_bar.update()
+                    time.sleep(0.1)
 
-        #for elem in self._refs:
-         #   print (elem)
-
-        # INICIALIZA Y ACTUALIZAR BARRA DE PROGRESO
-        # POR CADA PDF ANIADIDO EN self._refs
-         #progress_step = float(100.0 / i)
-
-
-               # progress += progress_step
-               # progress_var.set(progress)
-               # progress_bar.update()
-               # time.sleep(0.1)
 
         popup.destroy()
         return self._refs
@@ -216,13 +198,8 @@ class eGela:
 
         print("\t##### descargando  PDF... #####")
 
-        #############################################
-        # RELLENAR CON CODIGO DE LA PETICION HTTP
-        # Y PROCESAMIENTO DE LA RESPUESTA HTTP
-        #############################################
-
         metodo = 'GET'
-        uri = selection.get ('href')
+        uri = self._refs[selection]['pdf_link']
         print ('Metodo: ' + metodo)
         print ('Uri: ' + uri + '\n')
         cabeceras = {'Host': uri.split ('/') [2], 'Cookie': self._cookie}
@@ -239,7 +216,7 @@ class eGela:
         for cabecera in respuesta.headers:
             print (cabecera + ": " + respuesta.headers [cabecera])
 
-        print ("")
+        print("")
 
         metodo = 'GET'
         uri = respuesta.headers ['Location']
@@ -262,15 +239,11 @@ class eGela:
 
         print ("")
 
-        print ("File downloaded")
+        pdf_name = self._refs[selection]['pdf_name']
+        pdf_content = respuesta.content
 
-        pdf_name = respuesta.headers ['Content-Disposition'].split (';') [1].split ('"') [1].split ('.') [0]
-        print (pdf_name);
-        pdf = open (pdf_name + ".pdf", 'wb')
-        pdf.write (respuesta.content)
-        pdf.close ()
+        print ("File " + pdf_name + " downloaded")
 
 
-
-        return pdf_name, #pdf_content
+        return pdf_name, pdf_content
 
