@@ -8,8 +8,8 @@ from socket import AF_INET, socket, SOCK_STREAM
 import json
 import helper
 
-app_key = 'kfacoosqtm5n9zp'
-app_secret = 'bgyqh2dt1xmpq6h'
+app_key = 'XXXXXXXXXXXX' #Change this for your own key
+app_secret = 'XXXXXXXXX' #Change this for your own key
 server_addr = "localhost"
 server_port = 8090
 redirect_uri = "http://" + server_addr + ":" + str(server_port)
@@ -27,27 +27,21 @@ class Dropbox:
 
     def local_server(self):
 
-        # 8090. portuan entzuten dagoen zerbitzaria sortu
         server_socket = socket(AF_INET, SOCK_STREAM)
         server_socket.bind((server_addr, server_port))
         server_socket.listen(1)
         print("\tLocal server listening on port " + str(server_port))
 
-        # nabitzailetik 302 eskaera jaso
         client_connection, client_address = server_socket.accept()
         eskaera = client_connection.recv(1024)
         print("\tRequest from the browser received at local server:")
         print (eskaera)
 
-
-        # eskaeran "auth_code"-a bilatu
-        # --> aquiii
         lehenengo_lerroa = eskaera.decode('UTF8').split('\n')[0]
         aux_auth_code = lehenengo_lerroa.split(' ')[1]
         auth_code = aux_auth_code[7:].split('&')[0]
         print ("\tauth_code: " + auth_code)
 
-        # erabiltzaileari erantzun bat bueltatu
         http_response = "HTTP/1.1 200 OK\r\n\r\n" \
                         "<html>" \
                         "<head><title>Proba</title></head>" \
