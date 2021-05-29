@@ -104,7 +104,7 @@ def getChannelID(contenido):
 
 def getUserApiKey():
 
-    return ('xxxxxxxxxxxx') #User Api Key: Got it on ThingSpeak
+    return ('xxxxxxxxxxxx') #User Api Key: Got it on your ThingSpeak
 
 #Funciones incluídas para la ampliación de la práctica
 
