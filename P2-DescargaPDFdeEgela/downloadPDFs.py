@@ -35,11 +35,15 @@ def egelaSession():
 
     return (respuesta)
 
+#Obtiene la cookie de la primera petición a Egela
 
 def getCookie (respuesta):
+
     cookie = respuesta.headers ['Set-Cookie'].split (',') [0]
     return (cookie)
 
+
+#Redirecciones tras la primera peticion a Egela
 
 def redirections(respuesta,cookie):
 
@@ -92,6 +96,8 @@ def redirections(respuesta,cookie):
     print ("")
 
     return (respuesta)
+	
+#Obtiene la uri de la página de la asignatura que se solicite
 
 def getUri(respuesta):
 
@@ -104,6 +110,8 @@ def getUri(respuesta):
             uri = link.get('href')
 
     return (uri)
+	
+#Descarga de todos los pdfs de Egela	
 
 def downloadPDFs(uri,cookie):
 
@@ -148,6 +156,8 @@ def downloadPDFs(uri,cookie):
                 pdf.write(response.content)
                 pdf.close()
                 i = i + 1
+				
+#Descarga de pdf de Egela	
 
 def getPDF(filelink,cookie):
 
